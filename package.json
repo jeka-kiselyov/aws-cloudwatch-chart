@@ -1,0 +1,34 @@
+{
+  "name": "aws-cloudwatch-graph",
+  "description": "A Node module to draw graphs for AWS CloudWatch metrics",
+  "version": "0.0.1",
+  "author": {
+    "name": "Jeka Kiselyov",
+    "email": "jeka911@gmail.com",
+    "url": "https://github.com/jeka-kiselyov/aws-cloudwatch-graph"
+  },
+  "main": "aws-cloudwatch-graph.js",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/jeka-kiselyov/aws-cloudwatch-graph/blob/master/LICENSE"
+    }
+  ],
+  "keywords": [
+    "amazon",
+    "aws",
+    "ec2",
+    "rds",
+    "cloudwatch",
+    "iam",
+    "graph",
+    "statistic",
+    "cloud",
+    "statistics",
+    "CPU"
+  ],
+  "dependencies": {
+    "q": "~1.4.1",
+    "aws-sdk": "~2.1.30"
+  }
+}
