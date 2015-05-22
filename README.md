@@ -2,6 +2,9 @@
 
 A node.js module to draw graphs for AWS CloudWatch metrics
 
+Example graph:
+![Example of CloudWatch graph generated with aws-cloudwatch-graph node.js module](http://jeka-kiselyov.github.io/aws-cloudwatch-graph/example.png)
+
 Installation:
 ```bash
 npm install aws-cloudwatch-graph
