@@ -1,11 +1,14 @@
 {
   "name": "aws-cloudwatch-graph",
   "description": "A Node module to draw graphs for AWS CloudWatch metrics",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": {
     "name": "Jeka Kiselyov",
     "email": "jeka911@gmail.com",
     "url": "https://github.com/jeka-kiselyov/aws-cloudwatch-graph"
+  },
+  "scripts": {
+    "test": "make test"
   },
   "main": "aws-cloudwatch-graph.js",
   "licenses": [
@@ -30,5 +33,9 @@
   "dependencies": {
     "q": "~1.4.1",
     "aws-sdk": "~2.1.30"
+  },
+  "devDependencies": {
+    "mocha": "~2.2.5",
+    "chai": "~2.3.0"
   }
 }
