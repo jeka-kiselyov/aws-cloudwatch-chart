@@ -16,7 +16,7 @@
 		}
 	});
 
-	or:
+	or
 
 	acs.getGraph().then(function(graph){
 		graph.get().then(function(image){
@@ -27,33 +27,47 @@
 	config.json example:
 
 	{
-		"metrics": [								/// array of metrics settings
+		"metrics": [	/// array of metrics settings
 			{
-				"title": "Peku1 Max",				/// Title of metrics. Will be displayed on graph's legend. Should be unique
-				"namespace": "AWS/EC2",				/// AWS namespace
-													/// http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/aws-namespaces.html
-				"metricName": "CPUUtilization",		/// Metric name
-													/// http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html
-				"statisticValues": "Maximum",		/// Statistics values. 'Maximum' and "Average" supported 
-				"unit": "Percent",					/// Unit. http://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html
-				"color": "af9cf4",					/// Graph line color for this metric
-				"thickness": 2,						/// Line thickness
-				"dashed": false,					/// Dashed or solid
-				"InstanceId": "i-2d55aad0",			/// Any property other that listed above will be added to Dimensions array. It's different for different metrics namespaces
-													/// InstanceId. This parameter is for Dimensions array. Different for different metrics namespaces
-													/// http://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_Dimension.html  
+                /// Title of metrics. Will be displayed on graph's legend. Should be unique
+				"title": "Server1 Max CPU",
+                /// AWS namespace
+				/// http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/aws-namespaces.html
+				"namespace": "AWS/EC2",
+                /// Metric name
+				/// http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/CW_Support_For_AWS.html
+				"metricName": "CPUUtilization",		
+                /// Statistics values. 'Maximum' and "Average" supported 
+				"statisticValues": "Maximum",		
+                /// Unit. http://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html
+                /// 'Percent' and 'Count' currently supported
+				"unit": "Percent",					
+                /// Graph line color for this metric
+				"color": "af9cf4",				
+                /// Line thickness in px
+				"thickness": 2,					
+                /// Dashed or solid
+				"dashed": false,				
+                /// Any property other that listed above will be added to Dimensions array. It's different for different metrics namespaces
+				/// InstanceId. This parameter is for Dimensions array. Different for different metrics namespaces
+				/// http://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_Dimension.html  
+				"InstanceId": "i-2d55aad0",			
 			}
 		],
 		"aws": {
-			"accessKeyId": "XXXXXXXXXXXXXXXXXX",								/// AWS IAM accessKeyId      Dpn't forget to allow IAM to access CloudWatch. Not other policies are required. Safe.
-			"secretAccessKey": "XXXXXX/XXXXXXXXX/XXXXXXXXXXX/XXXXXXXXX",		/// AWS IAM secretAccessKey
-			"region": "us-east-1"												/// AWS region
+        	/// AWS IAM accessKeyId
+            /// Dpn't forget to allow IAM to access CloudWatch. Not other policies are required. Safe.
+			"accessKeyId": "XXXXXXXXXXXXXXXXXX",				
+            /// AWS IAM secretAccessKey
+			"secretAccessKey": "XXXXXX/XXXXXXXXX/XXXXXXXXXXX/XXXXXXXXX",	
+            /// AWS region
+			"region": "us-east-1"												
 		},
 		"timeOffset": 1440,		//// Get statistic for last 1440 minutes
 		"timePeriod": 60,		//// Get statistic for each 60 seconds 
 		"graphSamples": 20 		//// Data points extrapolated on graph
 	}
-
+	
 */
 
 

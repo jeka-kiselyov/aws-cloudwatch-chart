@@ -41,7 +41,7 @@ config.json example:
 		"metrics": [	/// array of metrics settings
 			{
                 /// Title of metrics. Will be displayed on graph's legend. Should be unique
-				"title": "Peku1 Max",
+				"title": "Server1 Max CPU",
                 /// AWS namespace
 				/// http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/aws-namespaces.html
 				"namespace": "AWS/EC2",
