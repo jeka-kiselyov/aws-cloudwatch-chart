@@ -3,6 +3,7 @@
 	aws-cloudwatch-graph
 
 	A Node module to draw graphs for AWS CloudWatch metrics
+	https://github.com/jeka-kiselyov/aws-cloudwatch-graph
 
 	Usage:
 
@@ -67,7 +68,7 @@
 		"timePeriod": 60,		//// Get statistic for each 60 seconds 
 		"graphSamples": 20 		//// Data points extrapolated on graph
 	}
-	
+
 */
 
 

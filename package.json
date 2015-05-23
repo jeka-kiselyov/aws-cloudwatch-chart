@@ -1,11 +1,19 @@
 {
   "name": "aws-cloudwatch-graph",
   "description": "A Node module to draw graphs for AWS CloudWatch metrics",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": {
     "name": "Jeka Kiselyov",
     "email": "jeka911@gmail.com",
-    "url": "https://github.com/jeka-kiselyov/aws-cloudwatch-graph"
+    "url": "https://github.com/jeka-kiselyov"
+  },
+  "homepage": "https://github.com/jeka-kiselyov/aws-cloudwatch-graph",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jeka-kiselyov/aws-cloudwatch-graph.git"
+  },
+  "bugs": {
+    "url": "http://github.com/jeka-kiselyov/aws-cloudwatch-graph/issues"
   },
   "scripts": {
     "test": "make test"

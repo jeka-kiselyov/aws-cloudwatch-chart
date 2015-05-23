@@ -80,6 +80,9 @@ config.json example:
 	}
 ```
 
+Source
+-------
+[On GitHub](https://github.com/jeka-kiselyov/aws-cloudwatch-graph)
 
 License
 -------
