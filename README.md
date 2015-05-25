@@ -76,7 +76,9 @@ config.json example:
 		},
 		"timeOffset": 1440,		//// Get statistic for last 1440 minutes
 		"timePeriod": 60,		//// Get statistic for each 60 seconds 
-		"graphSamples": 20 		//// Data points extrapolated on graph
+		"graphSamples": 20,		//// Data points extrapolated on graph
+		"width": 1000,			//// Result image width. Maximum value for width or height is 1,000. Width x height cannot exceed 300,000.
+		"height":250 			//// Result image height. Maximum value for width or height is 1,000. Width x height cannot exceed 300,000.
 	}
 ```
 
