@@ -71,6 +71,7 @@
 
 */
 
+module.exports = (function() {
 
 	var Q = require("q");
 	var http = require('http');
@@ -476,4 +477,6 @@
 	}
 
 	
-	module.exports = AwsCloudWatchGraph;
+	return AwsCloudWatchGraph;
+
+})();
