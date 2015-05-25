@@ -1,9 +1,9 @@
 var should = require('chai').should();
-var AwsCloudWatchGraph = require('../aws-cloudwatch-graph');
+var AwsCloudWatchChart = require('../aws-cloudwatch-chart');
 
 
-describe('AwsCloudWatchGraph', function() {
+describe('AwsCloudWatchChart', function() {
   it('is function', function() {
-    (typeof(AwsCloudWatchGraph)).should.equal('function');
+    (typeof(AwsCloudWatchChart)).should.equal('function');
   });
 });

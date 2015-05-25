@@ -1,26 +1,26 @@
 /*
 
-	aws-cloudwatch-graph
+	aws-cloudwatch-chart
 
 	A Node module to draw charts for AWS CloudWatch metrics
-	https://github.com/jeka-kiselyov/aws-cloudwatch-graph
+	https://github.com/jeka-kiselyov/aws-cloudwatch-chart
 
 	Usage:
 
-	var AwsCloudWatchGraph = require('aws-cloudwatch-graph');
+	var AwsCloudWatchChart = require('aws-cloudwatch-chart');
 	var config = require('./config.json');
-	var acs = new AwsCloudWatchGraph(config);
+	var acs = new AwsCloudWatchChart(config);
 
-	acs.getGraph().then(function(graph){
-		graph.save('image.png').then(function(filename){
+	acs.getChart().then(function(chart){
+		chart.save('image.png').then(function(filename){
 			//// filename should be == 'image.png' this is your chart.
 		}
 	});
 
 	or
 
-	acs.getGraph().then(function(graph){
-		graph.get().then(function(image){
+	acs.getChart().then(function(chart){
+		chart.get().then(function(image){
 			//// image is png image.
 		}
 	});
@@ -66,7 +66,7 @@
 		},
 		"timeOffset": 1440,		//// Get statistic for last 1440 minutes
 		"timePeriod": 60,		//// Get statistic for each 60 seconds 
-		"graphSamples": 20,		//// Data points extrapolated on chart
+		"chartSamples": 20,		//// Data points extrapolated on chart
 		"width": 1000,			//// Result image width. Maximum value for width or height is 1,000. Width x height cannot exceed 300,000.
 		"height":250 			//// Result image height. Maximum value for width or height is 1,000. Width x height cannot exceed 300,000.
 	}
@@ -79,7 +79,7 @@ module.exports = (function() {
 	var http = require('http');
 	var fs = require('fs');
 
-	AwsCloudWatchGraph = function(config) {
+	AwsCloudWatchChart = function(config) {
 
 		if (typeof(config) === 'undefined')
 			throw new Error('config parameter is missing'); 
@@ -97,7 +97,7 @@ module.exports = (function() {
 
 		this.timeOffset = config.hasOwnProperty('timeOffset') ? config.timeOffset : 24 * 60;
 		this.timePeriod = config.hasOwnProperty('timePeriod') ? config.timePeriod : 60;
-		this.graphSamples = config.hasOwnProperty('graphSamples') ? config.graphSamples : 24;
+		this.chartSamples = config.hasOwnProperty('chartSamples') ? config.chartSamples : 24;
 
 		this.width = config.hasOwnProperty('width') ? config.width : 1000;
 		this.height = config.hasOwnProperty('height') ? config.height : 250;
@@ -122,9 +122,9 @@ module.exports = (function() {
 
 	}
 
-	AwsCloudWatchGraph.prototype.addMetric = function(params)
+	AwsCloudWatchChart.prototype.addMetric = function(params)
 	{
-		var m = new AwsCloudWatchGraphMetric(this);
+		var m = new AwsCloudWatchChartMetric(this);
 		if (typeof(params) != 'undefined')
 		{
 			for (var k in params)
@@ -156,21 +156,21 @@ module.exports = (function() {
 		return m;
 	}
 
-	AwsCloudWatchGraph.prototype.getFromTimeString = function()
+	AwsCloudWatchChart.prototype.getFromTimeString = function()
 	{
 		var i = new Date;
 		i.setTime(i.getTime() - this.timeOffset*60*1000);
 		return (i.getUTCMonth()+1)+"/"+i.getUTCDate()+" "+("0" + i.getUTCHours()).slice(-2)+':'+("0" + i.getUTCMinutes()).slice(-2);
 	}
 
-	AwsCloudWatchGraph.prototype.getToTimeString = function()
+	AwsCloudWatchChart.prototype.getToTimeString = function()
 	{
 		var i = new Date;
 		return (i.getUTCMonth()+1)+"/"+i.getUTCDate()+" "+("0" + i.getUTCHours()).slice(-2)+':'+("0" + i.getUTCMinutes()).slice(-2);		
 	}
 
 
-	AwsCloudWatchGraph.prototype.getGraph = function()
+	AwsCloudWatchChart.prototype.getChart = function()
 	{
 		var d = Q.defer();
 		var metricsPrmomises = [];
@@ -184,7 +184,7 @@ module.exports = (function() {
 		return d.promise;
 	}
 
-	AwsCloudWatchGraph.prototype.listMetrics = function(Namespace, MetricName) 
+	AwsCloudWatchChart.prototype.listMetrics = function(Namespace, MetricName) 
 	{
 		if (typeof(Namespace) === 'undefined')
 			var Namespace = 'AWS/EC2';
@@ -207,9 +207,9 @@ module.exports = (function() {
 		return d.promise;
 	}
 
-	AwsCloudWatchGraph.prototype.EXTENDED_MAP = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-.';
+	AwsCloudWatchChart.prototype.EXTENDED_MAP = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-.';
 
-	AwsCloudWatchGraph.prototype.extendedEncode = function(arrVals, maxVal)
+	AwsCloudWatchChart.prototype.extendedEncode = function(arrVals, maxVal)
 	{
 		var chartData = '';
 		var EXTENDED_MAP_LENGTH = this.EXTENDED_MAP.length;
@@ -237,7 +237,7 @@ module.exports = (function() {
 	  return chartData;
 	}
 
-	AwsCloudWatchGraph.prototype.save = function(filename)
+	AwsCloudWatchChart.prototype.save = function(filename)
 	{
 		var d = Q.defer();
 		var url = this.getURL();
@@ -258,7 +258,7 @@ module.exports = (function() {
 		return d.promise;
 	}
 
-	AwsCloudWatchGraph.prototype.get = function()
+	AwsCloudWatchChart.prototype.get = function()
 	{
 		var d = Q.defer();
 		var url = this.getURL();
@@ -273,7 +273,7 @@ module.exports = (function() {
 		return d.promise;
 	}
 
-	AwsCloudWatchGraph.prototype.getURL = function()
+	AwsCloudWatchChart.prototype.getURL = function()
 	{
 		var toTime = false;
 		var fromTime = false;
@@ -295,7 +295,7 @@ module.exports = (function() {
 			}
 
 		var diff = toTime - fromTime;
-		diff = diff / this.graphSamples;
+		diff = diff / this.chartSamples;
 
 
 		var timeLabels = [];
@@ -404,14 +404,14 @@ module.exports = (function() {
 	}
 
 
-	AwsCloudWatchGraphMetric = function(AwsCloudWatchGraph) {
+	AwsCloudWatchChartMetric = function(AwsCloudWatchChart) {
 		this.Namespace = 'AWS/EC2';
 		this.MetricName = 'CPUUtilization';
 		this.Dimensions = [];
 		this.Unit = 'Percent'
 
-		this.AwsCloudWatchGraph = AwsCloudWatchGraph;
-		this.cloudwatch = AwsCloudWatchGraph.cloudwatch;
+		this.AwsCloudWatchChart = AwsCloudWatchChart;
+		this.cloudwatch = AwsCloudWatchChart.cloudwatch;
 
 		this.title = false;
 
@@ -424,21 +424,21 @@ module.exports = (function() {
 		this.dashed = false;
 	}
 
-	AwsCloudWatchGraphMetric.prototype.getStatistics = function()
+	AwsCloudWatchChartMetric.prototype.getStatistics = function()
 	{
 		var d = Q.defer();
 
 		var toTime = new Date;
 		var fromTime = new Date;
 
-		fromTime.setTime(toTime.getTime() - this.AwsCloudWatchGraph.timeOffset*60*1000);
+		fromTime.setTime(toTime.getTime() - this.AwsCloudWatchChart.timeOffset*60*1000);
 
 		var params = {
 			EndTime: toTime,
 			StartTime: fromTime,
 			MetricName: this.MetricName,
 			Namespace: this.Namespace,
-			Period: this.AwsCloudWatchGraph.timePeriod,
+			Period: this.AwsCloudWatchChart.timePeriod,
 			Statistics: [ this.statisticValues ],
 			Dimensions: this.Dimensions,
 			Unit: this.Unit
@@ -462,7 +462,7 @@ module.exports = (function() {
 		return d.promise;
 	}
 
-	AwsCloudWatchGraphMetric.prototype.getTitle = function()
+	AwsCloudWatchChartMetric.prototype.getTitle = function()
 	{
 		if (this.title !== false)
 			return this.title;
@@ -471,6 +471,6 @@ module.exports = (function() {
 	}
 
 	
-	return AwsCloudWatchGraph;
+	return AwsCloudWatchChart;
 
 })();

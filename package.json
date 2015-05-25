@@ -1,5 +1,5 @@
 {
-  "name": "aws-cloudwatch-graph",
+  "name": "aws-cloudwatch-chart",
   "description": "A Node module to draw charts for AWS CloudWatch metrics",
   "version": "0.0.9",
   "author": {
@@ -7,22 +7,22 @@
     "email": "jeka911@gmail.com",
     "url": "https://github.com/jeka-kiselyov"
   },
-  "homepage": "https://github.com/jeka-kiselyov/aws-cloudwatch-graph",
+  "homepage": "https://github.com/jeka-kiselyov/aws-cloudwatch-chart",
   "repository": {
     "type": "git",
-    "url": "git://github.com/jeka-kiselyov/aws-cloudwatch-graph.git"
+    "url": "git://github.com/jeka-kiselyov/aws-cloudwatch-chart.git"
   },
   "bugs": {
-    "url": "http://github.com/jeka-kiselyov/aws-cloudwatch-graph/issues"
+    "url": "http://github.com/jeka-kiselyov/aws-cloudwatch-chart/issues"
   },
   "scripts": {
     "test": "make test"
   },
-  "main": "aws-cloudwatch-graph.js",
+  "main": "aws-cloudwatch-chart.js",
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/jeka-kiselyov/aws-cloudwatch-graph/blob/master/LICENSE"
+      "url": "https://github.com/jeka-kiselyov/aws-cloudwatch-chart/blob/master/LICENSE"
     }
   ],
   "keywords": [
@@ -33,7 +33,7 @@
     "cloudwatch",
     "iam",
     "graph",
-    "chart"
+    "chart",
     "statistic",
     "cloud",
     "statistics",

@@ -1,24 +1,24 @@
-# aws-cloudwatch-graph
+# aws-cloudwatch-chart
 
 A node.js module to draw charts for AWS CloudWatch metrics
 
 Example chart:
-![Example of CloudWatch chart generated with aws-cloudwatch-graph node.js module](http://jeka-kiselyov.github.io/aws-cloudwatch-graph/example.png)
+![Example of CloudWatch chart generated with aws-cloudwatch-chart node.js module](http://jeka-kiselyov.github.io/aws-cloudwatch-chart/example.png)
 
 Installation:
 ```bash
-npm install aws-cloudwatch-graph
+npm install aws-cloudwatch-chart
 ```
 
 Usage:
 
 ```javascript
-	var AwsCloudWatchGraph = require('aws-cloudwatch-graph');
+	var AwsCloudWatchChart = require('aws-cloudwatch-chart');
 	var config = require('./config.json');
-	var acs = new AwsCloudWatchGraph(config);
+	var acs = new AwsCloudWatchChart(config);
 
-	acs.getGraph().then(function(graph){
-		graph.save('image.png').then(function(filename){
+	acs.getChart().then(function(chart){
+		chart.save('image.png').then(function(filename){
 			//// filename should be == 'image.png' this is your chart.
 		}
 	});
@@ -27,8 +27,8 @@ Usage:
 or
 
 ```javascript
-	acs.getGraph().then(function(graph){
-		graph.get().then(function(image){
+	acs.getChart().then(function(chart){
+		chart.get().then(function(image){
 			//// image is png image.
 		}
 	});
@@ -76,7 +76,7 @@ config.json example:
 		},
 		"timeOffset": 1440,		//// Get statistic for last 1440 minutes
 		"timePeriod": 60,		//// Get statistic for each 60 seconds 
-		"graphSamples": 20,		//// Data points extrapolated on chart
+		"chartSamples": 20,		//// Data points extrapolated on chart
 		"width": 1000,			//// Result image width. Maximum value for width or height is 1,000. Width x height cannot exceed 300,000.
 		"height":250 			//// Result image height. Maximum value for width or height is 1,000. Width x height cannot exceed 300,000.
 	}
@@ -84,7 +84,7 @@ config.json example:
 
 Source
 -------
-[On GitHub](https://github.com/jeka-kiselyov/aws-cloudwatch-graph)
+[On GitHub](https://github.com/jeka-kiselyov/aws-cloudwatch-chart)
 
 License
 -------
