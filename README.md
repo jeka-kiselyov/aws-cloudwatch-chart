@@ -1,9 +1,9 @@
 # aws-cloudwatch-graph
 
-A node.js module to draw graphs for AWS CloudWatch metrics
+A node.js module to draw charts for AWS CloudWatch metrics
 
-Example graph:
-![Example of CloudWatch graph generated with aws-cloudwatch-graph node.js module](http://jeka-kiselyov.github.io/aws-cloudwatch-graph/example.png)
+Example chart:
+![Example of CloudWatch chart generated with aws-cloudwatch-graph node.js module](http://jeka-kiselyov.github.io/aws-cloudwatch-graph/example.png)
 
 Installation:
 ```bash
@@ -19,7 +19,7 @@ Usage:
 
 	acs.getGraph().then(function(graph){
 		graph.save('image.png').then(function(filename){
-			//// filename should be == 'image.png' this is your graph.
+			//// filename should be == 'image.png' this is your chart.
 		}
 	});
 ```
@@ -40,7 +40,7 @@ config.json example:
 	{
 		"metrics": [	/// array of metrics settings
 			{
-                /// Title of metrics. Will be displayed on graph's legend. Should be unique
+                /// Title of metrics. Will be displayed on chart's legend. Should be unique
 				"title": "Server1 Max CPU",
                 /// AWS namespace
 				/// http://docs.aws.amazon.com/AmazonCloudWatch/latest/DeveloperGuide/aws-namespaces.html
@@ -53,7 +53,7 @@ config.json example:
                 /// Unit. http://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_GetMetricStatistics.html
                 /// 'Percent' and 'Count' currently supported
 				"unit": "Percent",					
-                /// Graph line color for this metric
+                /// Chart line color for this metric
 				"color": "af9cf4",				
                 /// Line thickness in px
 				"thickness": 2,					
@@ -76,7 +76,7 @@ config.json example:
 		},
 		"timeOffset": 1440,		//// Get statistic for last 1440 minutes
 		"timePeriod": 60,		//// Get statistic for each 60 seconds 
-		"graphSamples": 20,		//// Data points extrapolated on graph
+		"graphSamples": 20,		//// Data points extrapolated on chart
 		"width": 1000,			//// Result image width. Maximum value for width or height is 1,000. Width x height cannot exceed 300,000.
 		"height":250 			//// Result image height. Maximum value for width or height is 1,000. Width x height cannot exceed 300,000.
 	}

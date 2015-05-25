@@ -1,7 +1,7 @@
 {
   "name": "aws-cloudwatch-graph",
-  "description": "A Node module to draw graphs for AWS CloudWatch metrics",
-  "version": "0.0.7",
+  "description": "A Node module to draw charts for AWS CloudWatch metrics",
+  "version": "0.0.9",
   "author": {
     "name": "Jeka Kiselyov",
     "email": "jeka911@gmail.com",
@@ -33,6 +33,7 @@
     "cloudwatch",
     "iam",
     "graph",
+    "chart"
     "statistic",
     "cloud",
     "statistics",
