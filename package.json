@@ -1,7 +1,7 @@
 {
   "name": "aws-cloudwatch-chart",
   "description": "A Node module to draw charts for AWS CloudWatch metrics",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "author": {
     "name": "Jeka Kiselyov",
     "email": "jeka911@gmail.com",
@@ -19,6 +19,7 @@
     "test": "make test"
   },
   "main": "aws-cloudwatch-chart.js",
+  "license": "MIT",
   "licenses": [
     {
       "type": "MIT",
@@ -40,8 +41,9 @@
     "CPU"
   ],
   "dependencies": {
+    "aws-sdk": "~2.1.30",
     "q": "~1.4.1",
-    "aws-sdk": "~2.1.30"
+    "request": "^2.55.0"
   },
   "devDependencies": {
     "mocha": "~2.2.5",

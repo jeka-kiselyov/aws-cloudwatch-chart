@@ -77,6 +77,7 @@ module.exports = (function() {
 
 	var Q = require("q");
 	var http = require('http');
+	var request = require('request');
 	var fs = require('fs');
 
 	AwsCloudWatchChart = function(config) {
@@ -263,11 +264,17 @@ module.exports = (function() {
 		var d = Q.defer();
 		var url = this.getURL();
 
-		var file = fs.createWriteStream(filename);
-		var request = http.get(url, function(response) {
-			d.resolve(response);
-		}).on('error', function(err) {
-			d.resolve(false);
+		var requestSettings = {
+           method: 'GET',
+           url: url,
+           encoding: null
+        };
+
+		request(requestSettings, function (error, response, body) {
+			if (!error && response.statusCode == 200) 
+			{
+				d.resolve(body);
+			}
 		});
 
 		return d.promise;
