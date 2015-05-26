@@ -1,7 +1,7 @@
 {
   "name": "aws-cloudwatch-chart",
   "description": "A Node module to draw charts for AWS CloudWatch metrics",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": "Jeka Kiselyov",
     "email": "jeka911@gmail.com",
