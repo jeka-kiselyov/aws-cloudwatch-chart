@@ -82,6 +82,121 @@ config.json example:
 	}
 ```
 
+AWS Lambda ready:
+-------
+
+Sample AWS Lambda function: post CloudWatch alert chart for EC2 CPU utilization to Slack channel:
+
+```javascript
+   
+////// Upload it to Lambda as zip archive. With node_modules directory. After:
+////// npm install aws-cloudwatch-chart
+////// npm install request
+
+exports.handler = function(event, context) {
+
+
+	var request = require('request');
+	var fs = require('fs');
+    var AwsCloudWatchChart = require('aws-cloudwatch-chart');
+
+    var config = {};
+	config.slack = {
+		token: 'xoxp-234234234-234234234-234234234-234234234', 			/// Slack API token
+		channel: 'C323MTX9Z',											//// Slack channel to post file to
+		initialComment: "EC2 CPU Usage %from_time% to %to_time% UTC",	//// Initial comment format
+		fileTitle: "EC2 CPU Usage %from_time% to %to_time% UTC"			//// File title format
+	};
+	config.aws = {
+	    accessKeyId: "XXXXXXXXXXXX",							/// Dpn't forget to allow IAM to access CloudWatch. Not other policies are required. Safe.
+	    secretAccessKey: "xxxxxxx/xxxxxxxxxx/xxxxxxxxxxxx",
+	    region: "us-east-1"
+	};
+
+	config.timeOffset = 1440;
+	config.timePeriod = 60;
+	config.graphSamples = 20;
+	config.width = 1000;
+	config.height = 250;
+
+	if (typeof(event.Records) === 'undefined' || typeof(event.Records[0]) === 'undefined' || typeof(event.Records[0].Sns) === 'undefined')
+		context.fail ('ERROR: requires SNS message');
+
+	if (typeof(event.Records[0].Sns.Message) !== 'undefined' && typeof(event.Records[0].Sns.Message.Trigger) === 'undefined')
+		event.Records[0].Sns.Message = JSON.parse(event.Records[0].Sns.Message);
+
+	config.slack.initialComment = event.Records[0].Sns.Subject + "\n" + event.Records[0].Sns.Message.AlarmDescription;
+
+	config.metrics = [];
+
+	console.log('event.Records[0].Sns.Message:');
+	console.log(event.Records[0].Sns.Message);
+
+
+	if (typeof(event.Records[0].Sns.Message.Trigger) !== 'undefined' && typeof(event.Records[0].Sns.Message.Trigger.Dimensions) !== 'undefined')
+	if (event.Records[0].Sns.Message.Trigger.Namespace == 'AWS/EC2' && event.Records[0].Sns.Message.Trigger.MetricName == 'CPUUtilization')
+	{
+		config.metrics.push({
+	      InstanceId: event.Records[0].Sns.Message.Trigger.Dimensions[0].value,
+	      title: event.Records[0].Sns.Message.Trigger.Dimensions[0].value+" Max CPU Usage",
+	      Namespace: event.Records[0].Sns.Message.Trigger.Namespace,
+	      MetricName: event.Records[0].Sns.Message.Trigger.MetricName,
+	      StatisticValues: "Maximum",
+	      Unit: "Percent",
+	      color: "af9cf4",
+	      thickness: 2,
+	      dashed: false
+		});
+	}
+
+	if (config.metrics.length < 1)
+		context.fail ('ERROR: requires SNS alarm of AWS/EC2 CPUUtilization metric');		
+
+    var acs = new AwsCloudWatchChart(config);
+
+	console.log('Start');
+
+    acs.getChart().then(function(chart){
+
+    	console.log('Got chart URL');
+    	console.log(chart.getURL());
+
+        chart.get().then(function(image){
+
+	    	console.log('Got chart image');
+
+			var fileTitle = config.slack.fileTitle.
+							split('%from_time%').join(acs.getFromTimeString()).
+							split('%to_time%').join(acs.getToTimeString());
+			var initialComment = 	config.slack.initialComment.
+									split('%from_time%').join(acs.getFromTimeString()).
+									split('%to_time%').join(acs.getToTimeString());
+
+			var apiURL = "https://slack.com/api/files.upload?token=" + encodeURIComponent(config.slack.token) + 
+							"&filename=" + encodeURIComponent("image.png") + 
+							"&title=" + encodeURIComponent(fileTitle) + 
+							"&initial_comment=" + encodeURIComponent(initialComment) + 
+							"&channels=" + encodeURIComponent(config.slack.channel);
+
+
+	    	console.log('Sending file to Slack...');
+	    	var callback = function (err, response, body) {
+			    	console.log('Done. Response:');
+					console.log(body);
+					context.done(null);
+			}
+
+			var req = request.post(apiURL, callback);
+			var form = req.form();
+			form.append('file', new Buffer(image), {contentType: 'image/png', filename: 'x.png', name: 'x.png'});
+        });
+    });
+
+
+};
+```
+
+
 Source
 -------
 [On GitHub](https://github.com/jeka-kiselyov/aws-cloudwatch-chart)
