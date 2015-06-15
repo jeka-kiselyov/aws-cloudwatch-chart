@@ -85,7 +85,7 @@ config.json example:
 AWS Lambda ready:
 -------
 
-[Sample AWS Lambda function](https://gist.github.com/jeka-kiselyov/3f3801a165cab9e4a9fd). Posts SNS Alerts to Slack channel. And draws charts for CPUUtilization metrics.
+[Sample AWS Lambda function](https://gist.github.com/jeka-kiselyov/3f3801a165cab9e4a9fd). Posts CloudWatch Alerts via SNS topic via Lambda function to Slack channel. And draws charts for CPUUtilization and CPUCreditBalance (for T2 instances) metrics.
 
 Source
 -------
