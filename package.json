@@ -41,9 +41,11 @@
     "CPU"
   ],
   "dependencies": {
-    "aws-sdk": "~2.1.30",
     "q": "~1.4.1",
     "request": "^2.55.0"
+  },
+  "optionalDependencies": {
+    "aws-sdk": "~2.1.30"
   },
   "devDependencies": {
     "mocha": "~2.2.5",
