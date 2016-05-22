@@ -20,7 +20,7 @@ Usage:
 	acs.getChart().then(function(chart){
 		chart.save('image.png').then(function(filename){
 			//// filename should be == 'image.png' this is your chart.
-		}
+		});
 	});
 ```
 
